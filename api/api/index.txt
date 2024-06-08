@@ -1,0 +1,9 @@
+Spring e Spring Boot
+
+O Spring e o Spring Boot não são a mesma coisa. 
+- Spring é um framework para desenvolvimento de aplicação em Java. Foi desenvolvido de maneira modular, na qual cada recurso que ele disponibiliza é representado por um módulo
+Existem diversos módulos no Spring, cada um com uma finalidade distinta, como por exemplo: o módulo MVC, para desenvolvimento de aplicações Web e API's Rest; o módulo Security, para lidar com controle de autenticação e autorização da aplicação; e o módulo Transactions, para gerenciar o controle transacional.
+
+Porém um dos grandes problemas na utilização do spring era a configuração de seus módulos, que era feita toda em XML. E dependendo da complexidade da aplicação e da quantidade de módulos Spring, tais configurações eram extensas e de difícil manutenção.
+
+Para resolver esse problema, foi criado um novo módulo, chamado Boot, com o propósito de agilizar a criação de um projeto que utilize o Spring como framework.
