@@ -7,3 +7,70 @@ Existem diversos módulos no Spring, cada um com uma finalidade distinta, como p
 Porém um dos grandes problemas na utilização do spring era a configuração de seus módulos, que era feita toda em XML. E dependendo da complexidade da aplicação e da quantidade de módulos Spring, tais configurações eram extensas e de difícil manutenção.
 
 Para resolver esse problema, foi criado um novo módulo, chamado Boot, com o propósito de agilizar a criação de um projeto que utilize o Spring como framework.
+
+
+JSON 
+
+JSON ou JavaScript Object Notation é um formatdo utilizado para representação de informações, assim como XML e CSV.
+
+O JSON tem se popularizado devido sua leveza, simplicidade, facilidade de leitura por pessoas e máquinas, bem como seu suporte pelas diversas linguagens.
+
+
+
+CORS
+
+(Cross-Origin Resource Sharing) É um mecanismo utilizado para adicionar cabeçalhos HTTP que informam aos navegadores para permitir que uma aplicação Web seja executada em uma origem e acessa recursos de outra origem.
+Na prática, ele informa aos navegadores se um determinada recurso pode ou não se acessado.
+
+Same-origin policy
+
+Por padrão, aplicações front-end, escrita em JavaScript, só consegue acessar recursos localizados na mesma origem da solicitação.
+Isso acontece por conta da política de mesma origem, que é um mecanismo de segurança dos Browsers que restringe a maneira de um documento de uma origem interagir com recursos de outra origem.
+Duas URLs compartilham a mesma origem se o protocolo, porta (caso especificado) e host são os mesmos. 
+Ao enviar uma requisição para uma API de origem diferente, a API precisa retornar um header chamado Access-Control-Allow-Origin. Dentro dele, é necessário informar as diferentes origens que serão permitidas para consumir a API, em nosso caso: Access-Control-Allow-Origin: http://localhost:3000.
+É possível permitir o acesso de qualquer origem utilizando o símbolo *(asterisco): Access-Control-Allow-Origin: *. Porém não é recomendável.
+
+Para configurar o CORS e habilitar uma origem específica para consumir a API, basta criar uma classe de configuração como a seguinte:
+
+@Configuration
+public class CorsConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:3000")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+    }
+}
+
+
+
+Record
+Disponível a partir do Java 14, de maneira experimental, foi implementado oficialmente no Java 16 . É um recurso que permite representar classes imutáveis, contendo apenas atributos, construtor e métodos de leitura.
+
+
+
+Arquivo Properties ou yaml
+
+As configurações de uma aplicação Spring Boot são feitas em arquivos externos, sendo que podemos usar arquivo de propriedades ou arquivo YAML.
+
+Arquivo de Propriedades
+Por padrão, o Spring Boot acessa as configurações definidas no arquivo application.properties, que usa um formato de chave=valor
+Cada linha é uma configuração única, então é preciso expressar dados hierárquicos usando os mesmos prefixos para nossas chaves, ou seja, precisamos repetir prefixos, neste caso, spring e datasource.
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/clinica
+spring.datasource.username=root
+spring.datasource.password=root
+
+
+YAML Configuration
+YAML é um outro formato bastante utilizado para definir dados de configuração hierárquica, como é feito no Spring Boot.
+Pegando o mesmo exemplo do nosso arquivo application.properties, podemos convertê-lo para YAML alterando seu nome para application.yml e modificando seu conteúdo para:
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clinica
+    username: root
+    password: root
